@@ -14,16 +14,20 @@ class App extends Component {
   }
   handleAdd = async () => {
     let obj = { title: "a", body: "b" };
-    
+
     const { data: post } = await axios.post(endPoint, obj);
-    const posts = [post,...this.state.posts];
-    
+    const posts = [post, ...this.state.posts];
+
     this.setState({ posts });
     console.log(post);
   };
 
-  handleUpdate = (post) => {
-    console.log("Update", post);
+  handleUpdate = async (post) => {
+    post.title = "UPDATED";
+    await axios.put(endPoint + "/" + post.id, post);
+
+    const posts = [...this.state.posts];
+    this.setState({ posts });
   };
 
   handleDelete = (post) => {
