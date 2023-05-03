@@ -40,8 +40,18 @@ class App extends Component {
     this.setState({ posts });
     try {
       await axios.delete(endPoint + "/" + post.id);
+      
     } catch (ex) {
-      alert("Something faild while deliting a post");
+      //Expected (404: not found, 400 : bad request) --Client Errors
+      //You must display a specific error message
+
+      if (ex.response && ex.response.status === 404)
+        alert("This post has already been deleted");
+      else {
+        console.log("Logging the error", ex);
+        alert("Something faild while deliting a post");
+      }
+
       this.setState({ posts: originalPosts });
     }
   };
