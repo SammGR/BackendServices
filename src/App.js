@@ -23,11 +23,13 @@ class App extends Component {
   };
 
   handleUpdate = async (post) => {
-    post.title = "UPDATED with patch";
-    // await axios.put(endPoint + "/" + post.id, post);
-    await axios.patch(endPoint + "/" + post.id, { title: post.title });
+    post.title = "UPDATED";
+    await axios.put(endPoint + "/" + post.id, post);
+    // await axios.patch(endPoint + "/" + post.id, { title: post.title });
 
     const posts = [...this.state.posts];
+    const index = posts.indexOf(post);
+    posts[index] = {...post};
     this.setState({ posts });
   };
 
